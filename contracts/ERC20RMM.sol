@@ -7,7 +7,7 @@ contract ERC20RMM is ERC20 {
 		_mint(msg.sender, initialSupply);
 	}
 
-	function claimTokens() {
+	function claimTokens() public {
 		_mint(msg.sender, 1000000000000000000000);
 	}
 }
