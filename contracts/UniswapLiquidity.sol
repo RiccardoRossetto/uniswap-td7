@@ -27,6 +27,17 @@ contract UniswapLiquidity {
 
 	}
 
-	function addLiquidity()
-
+	function addLiquidity(
+		uint _amountTokenDesired, 
+		uint _amountTokenMin, 
+		uint _amountETHMini, 
+		uint _deadline
+		) public {
+		uniswapRouter.addLiquidityETH(TOKEN_ADDRESS, 
+			_amountTokenDesired, 
+			_amountTokenMin, 
+			_amountETHMin, 
+			msg.sender, 
+			_deadline);
+	}
 }
