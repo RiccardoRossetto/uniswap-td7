@@ -30,7 +30,7 @@ contract UniswapLiquidity {
 	function addLiquidity(
 		uint _amountTokenDesired, 
 		uint _amountTokenMin, 
-		uint _amountETHMini, 
+		uint _amountETHMin, 
 		uint _deadline
 		) public {
 		uniswapRouter.addLiquidityETH(TOKEN_ADDRESS, 
