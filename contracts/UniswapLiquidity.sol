@@ -14,6 +14,7 @@ contract UniswapLiquidity {
 	uint[] public balances;
 	
 	mapping(address => uint) public tokenBalances;
+	mapping(address => uint) public liquidityBalances;
 	mapping(address => uint) public etherBalances;
 	mapping(address => bool) public addressExists;
 	
@@ -36,10 +37,11 @@ contract UniswapLiquidity {
 		uint _amountTokenDesired,
 		uint _amountTokenMin,
 		uint _amountETHMin,
-		address _to,
 		uint _deadline
 		) public {
-
+		
+		address _to = msg.sender;		
+	
 		tokenRMM.approve(UNISWAP_ROUTER_ADDRESS, _amountTokenDesired);
 		
 		(uint _tokens, uint _ether, uint _liquidity) = uniswapRouter.addLiquidityETH{value: _amountETHDesired}(
@@ -48,26 +50,50 @@ contract UniswapLiquidity {
 					_amountTokenMin, 
 					_amountETHMin, 
 					_to,
-					_deadline
-					);
-
+					_deadline);
+		
+		liquidityBalances[msg.sender] += _liquidity;
 		tokenBalances[msg.sender] -= _tokens;
 		etherBalances[msg.sender] -= _ether;
 	}
 
+
 	function removeLiquidity(
-		uint _liquidity,
 		uint _amountTokenMin,
 		uint _amountETHMin,
 		uint _deadline
 		) public {
-		uniswapRouter.removeLiquidityETH(
+
+		address _to = msg.sender;
+		uint _liquidity = liquidityBalances[msg.sender];
+		
+
+		(uint _tokens, uint _ether) = uniswapRouter.removeLiquidityETH(
 			TOKEN_ADDRESS,
 			_liquidity,
 			_amountTokenMin,	
 			_amountETHMin,
-			msg.sender,
+			_to,
 			_deadline);
+
+		tokenBalances[msg.sender] += _tokens;
+		etherBalances[msg.sender] += _ether;
+		liquidityBalances[msg.sender] -= _liquidity;
+
+	}
+
+	
+	function withdrawAll() public {
+		uint _tokens = tokenBalances[msg.sender];
+		uint _ether = etherBalances[msg.sender];
+		address payable _to = msg.sender;
+
+		_to.transfer(_ether);
+		tokenRMM.transfer(_to, _tokens);
+
+		tokenBalances[msg.sender] -= _tokens;
+		etherBalances[msg.sender] -= _ether;
+		
 	} 
 
 }
