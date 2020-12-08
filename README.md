@@ -69,7 +69,7 @@ Moreover, we implemented a function which would return both ETH and RMM to the u
 By using different mappings we could keep track of balances both inside the contract, and in the liquidity pool, here's an overview:
 
 + liquidityBalances: Mapping that keeps track of how many LP tokens each user has.
-+ tokenBalancesInContract: Mapping the keeps track of the RMM balances inside the contract, which gets updated each time the RMM balance varies.
++ tokenBalancesInContract: Mapping that keeps track of the RMM balances inside the contract, which gets updated each time the RMM balance varies.
 + etherBalancesInContract: same as the mapping above, except for ETH.
 + tokenBalancesLiquidity: Net amount of RMM tokens pooled by the user.
 + etherBalancesLiquidity: Net amount of ETH pooled by the user.
