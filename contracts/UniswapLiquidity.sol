@@ -84,8 +84,8 @@ contract UniswapLiquidity {
 			_deadline);
 
 		liquidityBalances[msg.sender] = 0;
-	//	tokenBalancesLiquidity[msg.sender] -= _tokens;
-	//	etherBalancesLiquidity[msg.sender] -= _ether;
+		tokenBalancesLiquidity[msg.sender] -= _tokens;
+		etherBalancesLiquidity[msg.sender] -= _ether;
 
 
 	}
