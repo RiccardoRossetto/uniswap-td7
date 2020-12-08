@@ -39,6 +39,9 @@ contract UniswapLiquidity {
 		address _to,
 		uint _deadline
 		) public {
+
+		tokenRMM.approve(UNISWAP_ROUTER_ADDRESS, _amountTokenDesired);
+		
 		(uint _tokens, uint _ether, uint _liquidity) = uniswapRouter.addLiquidityETH{value: _amountETHDesired}(
 					TOKEN_ADDRESS, 
 					_amountTokenDesired, 
