@@ -70,6 +70,6 @@ By using different mappings we could keep track of balances both inside the cont
 
 + liquidityBalances: Mapping that keeps track of how many LP tokens each user has.
 + tokenBalancesInContract: Mapping that keeps track of the RMM balances inside the contract, which gets updated each time the RMM balance varies.
-+ etherBalancesInContract: same as the mapping above, except for ETH.
++ etherBalancesInContract: same as the mapping above, except it's for ETH.
 + tokenBalancesLiquidity: Net amount of RMM tokens pooled by the user.
 + etherBalancesLiquidity: Net amount of ETH pooled by the user.
